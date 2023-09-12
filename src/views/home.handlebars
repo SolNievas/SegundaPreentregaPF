@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{{title}}}</title>
+    <style>
+        .imgHome {
+            transition: all 0.5s;
+        }
+
+        .imgHome:hover {
+            transform: scale(0.9);
+            cursor: pointer;
+        }
+
+        .cardSize {
+            width: 300px;
+        }
+
+        .cards {
+            justify-content: space-around;
+        }
+
+        .btnHome {
+            background-color: rgb(64, 163, 64);
+            color: white;
+            transition: all 0.5s;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .btnHome:hover {
+            font-weight: bold;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row cards">
+            {{#each products.payload}}
+            <div class=" cardSize my-2">
+                <div class="card border-0 mb-3">
+                    <a href="/products/{{this._id}}">
+                        <div class="text-center ">
+                            <img src="{{this.thumbnails}}" class="img-fluid imgHome" alt="{{this.title}}">
+                        </div>
+                    </a>
+                    <div class="card-body text-center">
+                        <p class="card-text fw-bolder">
+                            {{this.title}}
+                        </p>
+                    </div>
+                    <div class="card-body text-center m-0 p-0">
+                        <p class="card-text m-0 ">
+                            {{this.description}}
+                        </p>
+                    </div>
+                    <div class="card-body text-center m-0 p-0">
+                        <p class="text-danger">${{this.price}} </p>
+                    </div>
+                    <p class="btnHome"><button class="btn" onclick="agregarProductoAlCarrito('{{product._id}}')">Agregar
+                            (+)</button></p>
+
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="row my-5">
+            <div class="col">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {{#if products.hasPrevPage}}
+                        <li class="page-item">
+                            <a class="page-link" href="{{products.prevLink}}">
+                                << </a>
+                        </li>
+                        {{/if}}
+                        {{#if products.hasPrevPage}}
+                        <li class="page-item">
+                            <a class="page-link" href="{{products.prevLink}}">{{products.prevPage}}</a>
+                        </li>
+                        {{/if}}
+                        <li class="page-item">
+                            <a class="page-link">{{products.page}}</a>
+                        </li>
+                        {{#if products.hasNextPage}}
+                        <li class="page-item">
+                            <a class="page-link" href="{{products.nextLink}}">{{products.nextPage}}</a>
+                        </li>
+                        {{/if}}
+                        {{#if products.hasNextPage}}
+                        <li class="page-item">
+                            <a class="page-link" href="{{products.nextLink}}">>></a>
+                        </li>
+                        {{/if}}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/products.js"></script>
+</body>
+
+</html>
